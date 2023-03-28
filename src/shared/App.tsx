@@ -1,10 +1,15 @@
-import React from 'react';
-import Routes from './Routes';
-
 import 'react-native-gesture-handler';
 
+import React from 'react';
+import ThemeProvider from './context/ThemeContext';
+import Routes from './Routes';
+
 const App = () => {
-  return <Routes />;
+  return (
+    <ThemeProvider>
+      <Routes />
+    </ThemeProvider>
+  );
 };
 
 export default App;
