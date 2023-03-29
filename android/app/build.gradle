@@ -93,9 +93,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.itunesfilms"
+    namespace "com.gmail.ochigov.alex.itunesfilms"
     defaultConfig {
-        applicationId "com.itunesfilms"
+        applicationId "com.gmail.ochigov.alex.itunesfilms"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
