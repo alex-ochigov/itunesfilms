@@ -1,10 +1,13 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import Placeholder from './views/Placeholder';
 
-import Home from './screens/Home';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const RootStack = createNativeStackNavigator();
+const BottomTabs = createBottomTabNavigator();
 
 const Routes = () => {
   return (
@@ -12,11 +15,49 @@ const Routes = () => {
       <RootStack.Navigator>
         <RootStack.Screen
           name="home"
-          component={Home}
+          component={Tabs}
           options={{headerShown: false}}
         />
       </RootStack.Navigator>
     </NavigationContainer>
+  );
+};
+
+const Tabs = () => {
+  return (
+    <BottomTabs.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarShowLabel: false,
+      }}>
+      <BottomTabs.Screen
+        name="FeedTab"
+        component={Placeholder}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Ionicons name="home-outline" size={size} color={color} />
+          ),
+        }}
+      />
+      <BottomTabs.Screen
+        name="FavouriteTab"
+        component={Placeholder}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Ionicons name="heart-outline" size={size} color={color} />
+          ),
+        }}
+      />
+      <BottomTabs.Screen
+        name="ProfileTab"
+        component={Placeholder}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Ionicons name="person-circle-outline" size={size} color={color} />
+          ),
+        }}
+      />
+    </BottomTabs.Navigator>
   );
 };
 
