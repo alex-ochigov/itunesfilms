@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {SafeAreaView, Keyboard, StyleSheet} from 'react-native';
 import Animated, {Layout} from 'react-native-reanimated';
 import {useQuery, useQueryClient} from '@tanstack/react-query';
-import SearchBar from '../components/SearchBar';
+import SearchBar from '@shared/components/SearchBar';
 import CancelButton from '../components/CancelButton';
 import SearchList from './SearchList';
 import {fetchMovies} from '@shared/api/handlers/search';
@@ -60,6 +60,7 @@ const SearchScreen = ({navigation}: SearchScreenType) => {
           handleSubmit={refetch}
           handleClear={handleClear}
           editable={true}
+          autoFocus={true}
           layout={Layout.damping(10)}
         />
 

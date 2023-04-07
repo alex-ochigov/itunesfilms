@@ -7,7 +7,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import Header from '../components/Header';
-import SearchBar from '../components/SearchBar';
+import SearchBar from '../../../shared/components/SearchBar';
 import ListHeader from '../components/ListHeader';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {HomeStackParamList} from '../types';
