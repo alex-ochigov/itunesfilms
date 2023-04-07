@@ -5,6 +5,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Placeholder from './views/Placeholder';
 import HomeStackViews from '../features/home';
+import FavoriteStackViews from '../features/favorite';
 
 const RootStack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -41,8 +42,8 @@ const Tabs = () => {
         }}
       />
       <BottomTabs.Screen
-        name="FavouriteTab"
-        component={Placeholder}
+        name="FavoriteTab"
+        component={FavoriteStackViews}
         options={{
           tabBarIcon: ({color, size}) => (
             <Ionicons name="heart-outline" size={size} color={color} />
