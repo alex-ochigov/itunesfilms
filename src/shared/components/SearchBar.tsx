@@ -14,7 +14,7 @@ type SearchBarType = {
   handleSubmit?: () => void;
   handleClear?: () => void;
   editable: boolean;
-  autoFocus: boolean;
+  autoFocus?: boolean;
   layout?: BaseAnimationBuilder | LayoutAnimationFunction;
   sharedTransitionTag?: string;
 };

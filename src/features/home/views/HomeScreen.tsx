@@ -7,12 +7,12 @@ import {
   StyleSheet,
 } from 'react-native';
 import Header from '../components/Header';
-import SearchBar from '../../../shared/components/SearchBar';
+import SearchBar from '@shared/components/SearchBar';
 import ListHeader from '../components/ListHeader';
-import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import type {HomeStackParamList} from '../types';
 import TvListSection from './TvListSection';
 import MovieListSection from './MovieListSection';
+import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import type {HomeStackParamList} from '../types';
 
 type FeaturedScreenType = NativeStackScreenProps<
   HomeStackParamList,
