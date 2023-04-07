@@ -14,6 +14,7 @@ type SearchBarType = {
   handleSubmit?: () => void;
   handleClear?: () => void;
   editable: boolean;
+  autoFocus: boolean;
   layout?: BaseAnimationBuilder | LayoutAnimationFunction;
   sharedTransitionTag?: string;
 };
@@ -25,6 +26,7 @@ const SearchBar = ({
   handleSubmit,
   handleClear,
   editable,
+  autoFocus = true,
   layout,
   sharedTransitionTag,
 }: SearchBarType) => {
@@ -38,7 +40,11 @@ const SearchBar = ({
     }
 
     // HACK: to prevent keyboard from being hidden in ios
-    // can't use autoFocus={true} due to 'reanimated'
+    // can't use autoFocus={true} directly on input due to 'reanimated'
+    if (!autoFocus) {
+      return;
+    }
+
     if (keyboardFirstTimeOpened) {
       return;
     }
@@ -50,7 +56,13 @@ const SearchBar = ({
         setKeyboardFirstTimeOpened(true);
       }, 500);
     }
-  }, [editable, inputRef, handleShowCancel, keyboardFirstTimeOpened]);
+  }, [
+    editable,
+    autoFocus,
+    inputRef,
+    handleShowCancel,
+    keyboardFirstTimeOpened,
+  ]);
 
   return (
     <Animated.View
