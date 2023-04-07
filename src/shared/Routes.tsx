@@ -3,28 +3,43 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Placeholder from './views/Placeholder';
-import HomeStackViews from '../features/home';
-import FavoriteStackViews from '../features/favorite';
+import SplashScreen from './views/SplashScreen';
+import HomeStackViews from '@features/home';
+import FavoriteStackViews from '@features/favorite';
+import AuthStackViews from '@features/auth';
+import ProfileStackViews from '@features/profile';
+import type {RootStackParamList, TabIconProps} from './types';
 
-const RootStack = createNativeStackNavigator();
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 const BottomTabs = createBottomTabNavigator();
 
 const Routes = () => {
   return (
     <NavigationContainer>
-      <RootStack.Navigator>
-        <RootStack.Screen
-          name="home"
-          component={Tabs}
-          options={{headerShown: false}}
-        />
+      <RootStack.Navigator
+        initialRouteName="Splash"
+        screenOptions={{headerShown: false, animation: 'fade'}}>
+        <RootStack.Screen name="Splash" component={SplashScreen} />
+        <RootStack.Screen name="Auth" component={AuthStackViews} />
+        <RootStack.Screen name="Home" component={Tabs} />
       </RootStack.Navigator>
     </NavigationContainer>
   );
 };
 
 const Tabs = () => {
+  const renderFeaturedTabIcon = ({color, size}: TabIconProps) => {
+    return <Ionicons name="home-outline" size={size} color={color} />;
+  };
+
+  const renderFavoriteTabIcon = ({color, size}: TabIconProps) => {
+    return <Ionicons name="heart-outline" size={size} color={color} />;
+  };
+
+  const renderProfileTabIcon = ({color, size}: TabIconProps) => {
+    return <Ionicons name="person-circle-outline" size={size} color={color} />;
+  };
+
   return (
     <BottomTabs.Navigator
       id="tabs"
@@ -36,27 +51,21 @@ const Tabs = () => {
         name="FeedTab"
         component={HomeStackViews}
         options={{
-          tabBarIcon: ({color, size}) => (
-            <Ionicons name="home-outline" size={size} color={color} />
-          ),
+          tabBarIcon: renderFeaturedTabIcon,
         }}
       />
       <BottomTabs.Screen
         name="FavoriteTab"
         component={FavoriteStackViews}
         options={{
-          tabBarIcon: ({color, size}) => (
-            <Ionicons name="heart-outline" size={size} color={color} />
-          ),
+          tabBarIcon: renderFavoriteTabIcon,
         }}
       />
       <BottomTabs.Screen
         name="ProfileTab"
-        component={Placeholder}
+        component={ProfileStackViews}
         options={{
-          tabBarIcon: ({color, size}) => (
-            <Ionicons name="person-circle-outline" size={size} color={color} />
-          ),
+          tabBarIcon: renderProfileTabIcon,
         }}
       />
     </BottomTabs.Navigator>
