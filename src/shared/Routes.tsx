@@ -2,9 +2,9 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Placeholder from './views/Placeholder';
-
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Placeholder from './views/Placeholder';
+import HomeStackViews from '../features/home';
 
 const RootStack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -26,13 +26,14 @@ const Routes = () => {
 const Tabs = () => {
   return (
     <BottomTabs.Navigator
+      id="tabs"
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
       }}>
       <BottomTabs.Screen
         name="FeedTab"
-        component={Placeholder}
+        component={HomeStackViews}
         options={{
           tabBarIcon: ({color, size}) => (
             <Ionicons name="home-outline" size={size} color={color} />
