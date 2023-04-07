@@ -4,6 +4,7 @@
     "types": ["@types/styled-components-react-native"],
     "baseUrl": ".",
     "paths": {
+      "@features/*": ["./src/features/*"],
       "@shared/*": ["./src/shared/*"]
     }
   }

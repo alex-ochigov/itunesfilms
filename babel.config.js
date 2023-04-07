@@ -6,6 +6,7 @@ module.exports = {
       'module-resolver',
       {
         alias: {
+          '@features': './src/features',
           '@shared': './src/shared',
         },
       },
