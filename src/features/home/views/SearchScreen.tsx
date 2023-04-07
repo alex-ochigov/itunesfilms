@@ -1,0 +1,92 @@
+import React, {useState} from 'react';
+import {SafeAreaView, Keyboard, StyleSheet} from 'react-native';
+import Animated, {Layout} from 'react-native-reanimated';
+import {useQuery, useQueryClient} from '@tanstack/react-query';
+import SearchBar from '../components/SearchBar';
+import CancelButton from '../components/CancelButton';
+import SearchList from './SearchList';
+import {fetchMovies} from '@shared/api/handlers/search';
+import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import type {HomeStackParamList, SearchItemType} from '../types';
+
+type SearchScreenType = NativeStackScreenProps<HomeStackParamList, 'Search'>;
+
+type SearchResponseDataType = {
+  data?: {
+    resultCount: number;
+    results: SearchItemType[];
+  };
+};
+
+const SearchScreen = ({navigation}: SearchScreenType) => {
+  const [showCancel, setShowCancel] = useState(false);
+  const [searchText, setSearchText] = useState('');
+
+  const queryClient = useQueryClient();
+
+  const {data, refetch, isFetching} = useQuery<SearchResponseDataType>(
+    ['search'],
+    () => fetchMovies(searchText),
+    {
+      enabled: false,
+      refetchOnWindowFocus: false,
+    },
+  );
+
+  const handleBack = () => {
+    setSearchText('');
+    setShowCancel(false);
+    queryClient.resetQueries(['search']);
+    setTimeout(() => {
+      navigation.goBack();
+    }, 250);
+  };
+
+  const handleClear = () => {
+    setSearchText('');
+    queryClient.resetQueries(['search']);
+    Keyboard.dismiss();
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <Animated.View
+        sharedTransitionTag="searchBar"
+        style={styles.searchWrapper}>
+        <SearchBar
+          value={searchText}
+          handleChange={text => setSearchText(text)}
+          handleShowCancel={() => setShowCancel(true)}
+          handleSubmit={refetch}
+          handleClear={handleClear}
+          editable={true}
+          layout={Layout.damping(10)}
+        />
+
+        {showCancel && <CancelButton handlePress={handleBack} />}
+      </Animated.View>
+
+      <SearchList data={data?.data?.results} isLoading={isFetching} />
+    </SafeAreaView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  header: {
+    paddingTop: 24,
+  },
+  searchWrapper: {
+    marginTop: 24,
+    marginHorizontal: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  listWrapper: {
+    paddingTop: 8,
+  },
+});
+
+export default SearchScreen;
