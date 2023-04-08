@@ -1,36 +1,66 @@
-import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
-import {StackActions} from '@react-navigation/native';
-import auth from '@react-native-firebase/auth';
+import React, {useState} from 'react';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import LinkButton from '../components/LinkButton';
+import FormContainer from '../components/FormContainer';
+import PrimaryButton from '../components/PrimaryButton';
+import Layout from '../components/Layout';
+import Input from '../components/Input';
+import {Heading} from '@shared/components/Typography';
 import type {AuthStackParamList} from '../types';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-type SignInScreenType = NativeStackScreenProps<AuthStackParamList, 'Register'>;
+type SignInScreenType = NativeStackScreenProps<AuthStackParamList, 'SignIn'>;
 
-const RegisterScreen = ({navigation}: SignInScreenType) => {
-  const handleAnon = async () => {
-    try {
-      const res = await auth().signInAnonymously();
-      if (res) {
-        navigation.dispatch(StackActions.replace('Home'));
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
+const SignInScreen = ({navigation}: SignInScreenType) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confPassword, setConfPassword] = useState('');
+
+  const handleSubmit = () => {};
 
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Register Screen</Text>
-      <TouchableOpacity onPress={handleAnon}>
-        <Text>Anon</Text>
-      </TouchableOpacity>
+    <Layout footer={<PrimaryButton onPress={handleSubmit} text="Register" />}>
+      <FormContainer
+        header={
+          <>
+            <Heading>Create an account.</Heading>
+            <LinkButton
+              onPress={() => navigation.goBack()}
+              text="Already have an account?"
+              linkText="Sign In"
+            />
+          </>
+        }>
+        <Input
+          type="text"
+          onChangeText={text => setEmail(text)}
+          value={email}
+          placeholder="Enter your email"
+          icon={<Ionicons name="mail-outline" size={24} color="#d1d1d1" />}
+        />
 
-      <TouchableOpacity onPress={() => navigation.goBack()}>
-        <Text>Back</Text>
-      </TouchableOpacity>
-    </View>
+        <Input
+          type="password"
+          onChangeText={text => setPassword(text)}
+          value={password}
+          placeholder="Enter your password"
+          icon={
+            <Ionicons name="lock-closed-outline" size={24} color="#d1d1d1" />
+          }
+        />
+
+        <Input
+          type="password"
+          onChangeText={text => setConfPassword(text)}
+          value={confPassword}
+          placeholder="Confirm your password"
+          icon={
+            <Ionicons name="lock-closed-outline" size={24} color="#d1d1d1" />
+          }
+        />
+      </FormContainer>
+    </Layout>
   );
 };
 
-export default RegisterScreen;
+export default SignInScreen;
