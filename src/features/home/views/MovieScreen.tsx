@@ -22,6 +22,8 @@ import {
 } from 'react-native-safe-area-context';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {HomeStackParamList} from '../types';
+import {ITheme} from '@shared/theme/theme';
+import {useTheme} from '@shared/theme/styled-components';
 
 type MovieScreenType = NativeStackScreenProps<HomeStackParamList, 'Movie'>;
 
@@ -32,11 +34,13 @@ const MovieScreen = ({route, navigation}: MovieScreenType) => {
   const {item} = route.params;
   const uri = item.artworkUrl100.replace('100x100', '480x480');
 
+  useHideBottomTabs();
+
   const insets = useSafeAreaInsets();
   const videoRef = useRef<Video | null>();
   const appState = useRef(AppState.currentState);
-
-  useHideBottomTabs();
+  const theme = useTheme();
+  const styles = getStyles(insets, theme);
 
   useEffect(() => {
     const subscription = AppState.addEventListener(
@@ -68,8 +72,6 @@ const MovieScreen = ({route, navigation}: MovieScreenType) => {
       await Linking.openURL(item.trackViewUrl);
     } catch (e) {}
   };
-
-  const styles = getStyles(insets);
 
   return (
     <View style={styles.container}>
@@ -142,7 +144,7 @@ const MovieScreen = ({route, navigation}: MovieScreenType) => {
           style={styles.bottomGradient}
           colors={['rgba(0, 0, 0, 0.001)', 'rgba(0, 0, 0, 0.4)']}>
           <TouchableOpacity onPress={handleViewUrl} style={styles.viewButton}>
-            <Text>View More</Text>
+            <Text style={styles.viewButtonText}>View More</Text>
           </TouchableOpacity>
         </LinearGradient>
       </View>
@@ -150,10 +152,11 @@ const MovieScreen = ({route, navigation}: MovieScreenType) => {
   );
 };
 
-const getStyles = (insets: EdgeInsets) =>
+const getStyles = (insets: EdgeInsets, {colors}: ITheme) =>
   StyleSheet.create({
     container: {
       flex: 1,
+      backgroundColor: colors.background,
     },
     preview: {
       position: 'relative',
@@ -241,8 +244,12 @@ const getStyles = (insets: EdgeInsets) =>
       height: 45,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#eee',
+      backgroundColor: colors.primary,
       borderRadius: 100,
+    },
+    viewButtonText: {
+      fontSize: 18,
+      color: colors.background,
     },
   });
 

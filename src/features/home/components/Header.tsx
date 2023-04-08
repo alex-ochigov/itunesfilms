@@ -2,7 +2,6 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Heading} from '@shared/components/Typography';
 import Avatar from './Avatar';
-import auth from '@react-native-firebase/auth';
 import useFirebaseUser from '@shared/hooks/useFirebaseUser';
 
 const Header = () => {

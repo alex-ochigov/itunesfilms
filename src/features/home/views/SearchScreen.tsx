@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
 import {SafeAreaView, Keyboard, StyleSheet} from 'react-native';
 import Animated, {Layout} from 'react-native-reanimated';
-import {useQuery, useQueryClient} from '@tanstack/react-query';
 import SearchBar from '@shared/components/SearchBar';
 import CancelButton from '../components/CancelButton';
 import SearchList from './SearchList';
+import {useTheme} from '@shared/theme/styled-components';
+import {useQuery, useQueryClient} from '@tanstack/react-query';
 import {fetchMovies} from '@shared/api/handlers/search';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {HomeStackParamList, SearchItemType} from '../types';
+import type {ITheme} from '@shared/theme/theme';
 
 type SearchScreenType = NativeStackScreenProps<HomeStackParamList, 'Search'>;
 
@@ -23,6 +25,8 @@ const SearchScreen = ({navigation}: SearchScreenType) => {
   const [searchText, setSearchText] = useState('');
 
   const queryClient = useQueryClient();
+  const theme = useTheme();
+  const styles = getStyles(theme);
 
   const {data, refetch, isFetching} = useQuery<SearchResponseDataType>(
     ['search'],
@@ -72,22 +76,24 @@ const SearchScreen = ({navigation}: SearchScreenType) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  header: {
-    paddingTop: 24,
-  },
-  searchWrapper: {
-    marginTop: 24,
-    marginHorizontal: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  listWrapper: {
-    paddingTop: 8,
-  },
-});
+const getStyles = ({colors}: ITheme) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.background,
+    },
+    header: {
+      paddingTop: 24,
+    },
+    searchWrapper: {
+      marginTop: 24,
+      marginHorizontal: 16,
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    listWrapper: {
+      paddingTop: 8,
+    },
+  });
 
 export default SearchScreen;

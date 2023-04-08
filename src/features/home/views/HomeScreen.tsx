@@ -11,8 +11,10 @@ import SearchBar from '@shared/components/SearchBar';
 import ListHeader from '../components/ListHeader';
 import TvListSection from './TvListSection';
 import MovieListSection from './MovieListSection';
+import {useTheme} from '@shared/theme/styled-components';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {HomeStackParamList} from '../types';
+import type {ITheme} from '@shared/theme/theme';
 
 type FeaturedScreenType = NativeStackScreenProps<
   HomeStackParamList,
@@ -20,8 +22,10 @@ type FeaturedScreenType = NativeStackScreenProps<
 >;
 
 const FeaturedScreen = ({navigation}: FeaturedScreenType) => {
+  const theme = useTheme();
+  const styles = getStyles(theme);
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.listBottomPadding}>
         <Header />
 
@@ -47,22 +51,27 @@ const FeaturedScreen = ({navigation}: FeaturedScreenType) => {
   );
 };
 
-const styles = StyleSheet.create({
-  listBottomPadding: {
-    paddingBottom: 50,
-  },
-  searchWrapper: {
-    marginTop: 24,
-    marginHorizontal: 16,
-  },
-  listContainer: {
-    paddingHorizontal: 16,
-    columnGap: 8,
-    justifyContent: 'center',
-  },
-  section: {
-    marginTop: 32,
-  },
-});
+const getStyles = ({colors}: ITheme) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.background,
+    },
+    listBottomPadding: {
+      paddingBottom: 50,
+    },
+    searchWrapper: {
+      marginTop: 24,
+      marginHorizontal: 16,
+    },
+    listContainer: {
+      paddingHorizontal: 16,
+      columnGap: 8,
+      justifyContent: 'center',
+    },
+    section: {
+      marginTop: 32,
+    },
+  });
 
 export default FeaturedScreen;

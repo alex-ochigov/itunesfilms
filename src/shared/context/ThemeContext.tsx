@@ -6,12 +6,13 @@ import React, {
   useState,
 } from 'react';
 import {Appearance, StatusBar} from 'react-native';
-import {ThemeProvider as StyledThemeProvider} from 'styled-components';
-import * as themes from '../theme';
+import {ThemeProvider as StyledThemeProvider} from '@shared/theme/styled-components';
+import * as themes from '../theme/theme';
 
 type ColorScheme = 'light' | 'dark';
 
 interface ThemeContextType {
+  currentScheme: ColorScheme;
   updateColorScheme: (colorScheme: ColorScheme) => void;
   reverseColorSheme: () => void;
 }
@@ -41,13 +42,17 @@ const ThemeProvider = ({children}: PropsWithChildren) => {
     return currentScheme === 'dark' ? 'light-content' : 'dark-content';
   };
 
+  const getTheme = () => {
+    return themes[currentScheme];
+  };
+
   const value = useMemo(() => {
-    return {updateColorScheme, reverseColorSheme};
-  }, [updateColorScheme, reverseColorSheme]);
+    return {currentScheme, updateColorScheme, reverseColorSheme};
+  }, [currentScheme, updateColorScheme, reverseColorSheme]);
 
   return (
     <ThemeContext.Provider value={value}>
-      <StyledThemeProvider theme={themes[currentScheme]}>
+      <StyledThemeProvider theme={getTheme()}>
         <StatusBar animated={true} barStyle={getBarStyle()} />
         {children}
       </StyledThemeProvider>

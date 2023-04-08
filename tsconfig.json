@@ -1,7 +1,10 @@
 {
   "extends": "@tsconfig/react-native/tsconfig.json",
   "compilerOptions": {
-    "types": ["@types/styled-components-react-native"],
+    "types": [
+      "styled-components-react-native",
+      "./src/shared/theme/styled.d.ts"
+    ],
     "baseUrl": ".",
     "paths": {
       "@features/*": ["./src/features/*"],

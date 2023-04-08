@@ -1,11 +1,17 @@
 import React, {useState, createRef, useEffect} from 'react';
-import {View, TextInput, TouchableOpacity, StyleSheet} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  TextInput as RNTextInput,
+} from 'react-native';
 import Animated from 'react-native-reanimated';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import type {
   BaseAnimationBuilder,
   LayoutAnimationFunction,
 } from 'react-native-reanimated';
+import TextInput from './Input';
 
 type SearchBarType = {
   value?: string;
@@ -32,7 +38,7 @@ const SearchBar = ({
 }: SearchBarType) => {
   const [keyboardFirstTimeOpened, setKeyboardFirstTimeOpened] = useState(false);
 
-  const inputRef = createRef<TextInput>();
+  const inputRef = createRef<RNTextInput>();
 
   useEffect(() => {
     if (!editable) {

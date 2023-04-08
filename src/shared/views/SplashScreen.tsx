@@ -1,14 +1,19 @@
 import React, {useEffect} from 'react';
 import {SafeAreaView, View, StyleSheet} from 'react-native';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
-import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import type {RootStackParamList} from '@shared/types';
 import Animated from 'react-native-reanimated';
 import Logo from '@shared/components/Logo';
+import {useTheme} from '@shared/theme/styled-components';
+import type {ITheme} from '@shared/theme/theme';
+import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import type {RootStackParamList} from '@shared/types';
 
 type SplashScreenType = NativeStackScreenProps<RootStackParamList, 'Splash'>;
 
 const SplashScreen = ({navigation}: SplashScreenType) => {
+  const theme = useTheme();
+  const styles = getStyles(theme);
+
   function onAuthStateChanged(user: FirebaseAuthTypes.User | null) {
     // short delay
     setTimeout(() => {
@@ -40,15 +45,17 @@ const SplashScreen = ({navigation}: SplashScreenType) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  wrapper: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+const getStyles = ({colors}: ITheme) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.background,
+    },
+    wrapper: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  });
 
 export default SplashScreen;

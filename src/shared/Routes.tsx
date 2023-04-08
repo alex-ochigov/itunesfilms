@@ -1,13 +1,16 @@
 import React from 'react';
+import {StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {BlurView} from '@react-native-community/blur';
 import SplashScreen from './views/SplashScreen';
 import HomeStackViews from '@features/home';
 import FavoriteStackViews from '@features/favorite';
 import AuthStackViews from '@features/auth';
 import ProfileStackViews from '@features/profile';
+import useColorScheme from './hooks/useColorScheme';
 import type {RootStackParamList, TabIconProps} from './types';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
@@ -40,12 +43,30 @@ const Tabs = () => {
     return <Ionicons name="person-circle-outline" size={size} color={color} />;
   };
 
+  const {currentScheme} = useColorScheme();
+
+  const renderBackground = () => {
+    return (
+      <BlurView
+        style={StyleSheet.absoluteFill}
+        blurAmount={10}
+        blurType={currentScheme}
+      />
+    );
+  };
+
   return (
     <BottomTabs.Navigator
       id="tabs"
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
+        tabBarBackground: renderBackground,
+        tabBarStyle: {
+          position: 'absolute',
+          backgroundColor: 'transparent',
+          borderTopColor: 'transparent',
+        },
       }}>
       <BottomTabs.Screen
         name="FeedTab"

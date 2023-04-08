@@ -6,12 +6,19 @@ const useHideBottomTabs = () => {
 
   useEffect(() => {
     navigation.getParent('tabs').setOptions({
-      tabBarStyle: {display: 'none'},
+      tabBarStyle: {
+        display: 'none',
+      },
     });
 
     return () =>
       navigation.getParent('tabs').setOptions({
-        tabBarStyle: {display: 'flex'},
+        tabBarStyle: {
+          display: 'flex',
+          position: 'absolute',
+          backgroundColor: 'transparent',
+          borderTopColor: 'transparent',
+        },
       });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

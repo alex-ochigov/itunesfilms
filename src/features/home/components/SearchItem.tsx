@@ -9,6 +9,7 @@ import {
 import Text, {Caption} from '@shared/components/Typography';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {SearchItemType} from '../types';
+import {useTheme} from '@shared/theme/styled-components';
 
 const SearchItem = ({
   item,
@@ -18,6 +19,7 @@ const SearchItem = ({
   onPress: (event: GestureResponderEvent) => void;
 }) => {
   const uri = item.artworkUrl100.replace('100x100', '200x200');
+  const {colors} = useTheme();
   return (
     <TouchableOpacity style={styles.item} onPress={onPress}>
       <Image style={styles.image} source={{uri}} />
@@ -27,7 +29,11 @@ const SearchItem = ({
           <Caption>{new Date(item.releaseDate).getFullYear()}</Caption>
         </View>
 
-        <Ionicons name="chevron-forward-outline" size={20} color="#ddd" />
+        <Ionicons
+          name="chevron-forward-outline"
+          size={20}
+          color={colors.grey}
+        />
       </View>
     </TouchableOpacity>
   );
