@@ -11,13 +11,19 @@ type LinkButtonProps = {
   onPress: (event: GestureResponderEvent) => void;
   text: string;
   linkText: string;
+  disabled?: boolean;
 };
 
-const LinkButton = ({onPress, text, linkText}: LinkButtonProps) => {
+const LinkButton = ({
+  onPress,
+  text,
+  linkText,
+  disabled = false,
+}: LinkButtonProps) => {
   return (
     <View style={styles.container}>
       <Text>{text}</Text>
-      <TouchableOpacity onPress={onPress}>
+      <TouchableOpacity onPress={onPress} disabled={disabled}>
         <Text style={styles.link}>{linkText}</Text>
       </TouchableOpacity>
     </View>
@@ -30,7 +36,9 @@ const styles = StyleSheet.create({
     columnGap: 6,
     justifyContent: 'center',
   },
-  link: {},
+  link: {
+    color: '#2196f3',
+  },
 });
 
 export default LinkButton;

@@ -2,11 +2,19 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Heading} from '@shared/components/Typography';
 import Avatar from './Avatar';
+import auth from '@react-native-firebase/auth';
+import useFirebaseUser from '@shared/hooks/useFirebaseUser';
 
 const Header = () => {
+  const user = useFirebaseUser();
+
+  const renderUserName = () => {
+    return user?.displayName ?? user?.email?.split('@')[0];
+  };
+
   return (
     <View style={styles.container}>
-      <Heading>Hi, Alex 👋</Heading>
+      <Heading>Hi, {renderUserName() || 'user'} 👋</Heading>
       <Avatar uri="https://source.unsplash.com/random" />
     </View>
   );

@@ -1,5 +1,5 @@
 import React, {type ReactNode} from 'react';
-import {SafeAreaView, View, StyleSheet} from 'react-native';
+import {SafeAreaView, View, StyleSheet, Dimensions} from 'react-native';
 import Logo from '@shared/components/Logo';
 
 type LayoutProps = {
@@ -7,6 +7,8 @@ type LayoutProps = {
   children: ReactNode;
   footer: ReactNode;
 };
+
+const {height} = Dimensions.get('window');
 
 const Layout = ({children, footer, logoTransitionTag}: LayoutProps) => {
   return (
@@ -27,7 +29,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   logoWrapper: {
-    marginVertical: 120,
+    marginVertical: height / 7.467,
   },
   footer: {
     alignItems: 'center',

@@ -15,11 +15,9 @@ const SplashScreen = ({navigation}: SplashScreenType) => {
       if (user) {
         // check onboarding?
         //  - navigate to onboarding
-        // navigate to home
         navigation.replace('Home');
       } else {
         navigation.replace('Auth');
-        // navigate to auth
       }
     }, 350);
   }
