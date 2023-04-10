@@ -18,3 +18,17 @@ export type Theme = {
   background: string;
   primary: string;
 };
+
+export type MovieType = {
+  trackId: number;
+  trackName: string;
+  kind: string;
+  previewUrl: string;
+  artworkUrl100: string;
+  releaseDate: string;
+  currency: string;
+  primaryGenreName: string;
+  longDescription: string;
+  trackPrice: number;
+  trackViewUrl: string;
+};

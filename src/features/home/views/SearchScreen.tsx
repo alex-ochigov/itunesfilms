@@ -3,20 +3,21 @@ import {SafeAreaView, Keyboard, StyleSheet} from 'react-native';
 import Animated, {Layout} from 'react-native-reanimated';
 import SearchBar from '@shared/components/SearchBar';
 import CancelButton from '../components/CancelButton';
-import SearchList from './SearchList';
+import SearchList from '@shared/views/SearchList';
 import {useTheme} from '@shared/theme/styled-components';
 import {useQuery, useQueryClient} from '@tanstack/react-query';
 import {fetchMovies} from '@shared/api/handlers/search';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import type {HomeStackParamList, SearchItemType} from '../types';
+import type {HomeStackParamList} from '../types';
 import type {ITheme} from '@shared/theme/theme';
+import type {MovieType} from '@shared/types';
 
 type SearchScreenType = NativeStackScreenProps<HomeStackParamList, 'Search'>;
 
 type SearchResponseDataType = {
   data?: {
     resultCount: number;
-    results: SearchItemType[];
+    results: MovieType[];
   };
 };
 

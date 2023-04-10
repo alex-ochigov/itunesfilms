@@ -8,14 +8,14 @@ import {
 } from 'react-native';
 import Text, {Caption} from '@shared/components/Typography';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {SearchItemType} from '../types';
 import {useTheme} from '@shared/theme/styled-components';
+import {MovieType} from '@shared/types';
 
 const SearchItem = ({
   item,
   onPress,
 }: {
-  item: SearchItemType;
+  item: MovieType;
   onPress: (event: GestureResponderEvent) => void;
 }) => {
   const uri = item.artworkUrl100.replace('100x100', '200x200');

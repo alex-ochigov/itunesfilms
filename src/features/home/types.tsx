@@ -1,7 +1,9 @@
+import {MovieType} from '@shared/types';
+
 export type HomeStackParamList = {
   Featured: undefined;
   Search: undefined;
-  Movie: {item: SearchItemType};
+  Movie: {item: MovieType};
 };
 
 export type FeaturedDataType = {
@@ -23,18 +25,4 @@ export type FeaturedItemType = {
 
 export type FeaturedListItemProps = {
   item: FeaturedItemType;
-};
-
-export type SearchItemType = {
-  trackId: number;
-  trackName: string;
-  kind: string;
-  previewUrl: string;
-  artworkUrl100: string;
-  releaseDate: string;
-  currency: string;
-  primaryGenreName: string;
-  longDescription: string;
-  trackPrice: number;
-  trackViewUrl: string;
 };
