@@ -1,3 +1,6 @@
+import {MovieType} from '@shared/types';
+
 export type FavoriteStackParamList = {
-  List: undefined;
+  Favorite: undefined;
+  Movie: {item: MovieType};
 };
