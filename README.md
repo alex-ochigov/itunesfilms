@@ -21,8 +21,10 @@ cd ios && pod install
 
 Apply reanimated patch for android https://gist.github.com/balmasich/e13ae0b12d3b4ab166a6143204b87dae
 
+### Firebase
 - Create and configurate a new firebase project: https://console.firebase.google.com/u/0/
 - Copy coresponding files for ios and android.
+
 ### Usage
 
 To start the app on an Android or iOS device, run one of the following scripts:
