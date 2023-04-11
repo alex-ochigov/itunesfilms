@@ -1,6 +1,7 @@
 import React from 'react';
-import ProfileScreen from './views/ProfileScreen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import ProfileScreen from './views/ProfileScreen';
+import PreferencesScreen from './views/PrefrencesScreen';
 import type {ProfileStackParamList} from './types';
 
 const ProfileStack = createNativeStackNavigator<ProfileStackParamList>();
@@ -11,6 +12,7 @@ const ProfileStackViews = () => {
       initialRouteName="Profile"
       screenOptions={{headerShown: false}}>
       <ProfileStack.Screen name="Profile" component={ProfileScreen} />
+      <ProfileStack.Screen name="Preferences" component={PreferencesScreen} />
     </ProfileStack.Navigator>
   );
 };
