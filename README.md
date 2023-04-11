@@ -15,6 +15,7 @@ Then navigate into the project directory and install the dependencies using Node
 ```
 cd itunesfilms
 npm install
+npx react-native-asset
 cd ios && pod install
 ```
 
