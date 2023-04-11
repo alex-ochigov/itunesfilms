@@ -7,6 +7,8 @@ import {
 } from 'react-native';
 import Animated, {useAnimatedStyle, withTiming} from 'react-native-reanimated';
 import Text from '@shared/components/Typography';
+import {ITheme} from '@shared/theme/theme';
+import {useTheme} from '@shared/theme/styled-components';
 
 type PrimaryButtonProps = {
   text: string;
@@ -25,6 +27,9 @@ const PrimaryButton = ({
       : {width: withTiming(240, {duration: 100})};
   });
 
+  const theme = useTheme();
+  const styles = getStyles(theme);
+
   return (
     <Animated.View style={[styles.container, animatedStyles]}>
       <TouchableOpacity
@@ -38,22 +43,23 @@ const PrimaryButton = ({
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    height: 45,
-    width: 240,
-    borderRadius: 100,
-    backgroundColor: '#212121',
-  },
-  button: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    color: '#fff',
-    fontSize: 18,
-  },
-});
+const getStyles = ({colors}: ITheme) =>
+  StyleSheet.create({
+    container: {
+      height: 45,
+      width: 240,
+      borderRadius: 100,
+      backgroundColor: colors.primary,
+    },
+    button: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    text: {
+      fontSize: 18,
+      color: colors.background,
+    },
+  });
 
 export default PrimaryButton;
